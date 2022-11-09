@@ -1,16 +1,13 @@
-name: Build and push latest docker image
+name: Build and push tagged release
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  create:
+    tags:
+      - v*
 
 env:
   IMAGE_NAME: quay.io/elastx/ci-openstackclient
-  IMAGE_VERSION: latest
+  IMAGE_VERSION: ${{ github.ref_name }}
   QUAY_USER: elastx+ci_openstackclient
 
 jobs:
@@ -19,7 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: elastx/actions/docker-lint@main
-  build-and-push-latest:
+  build-and-push-tagged:
     runs-on:
       - self-hosted
       - non-persistent
