@@ -12,9 +12,7 @@ RUN apt-get update && apt-cache madison \
     python3-neutronclient \
     python3-novaclient \
     python3-octaviaclient \
-    python3-swiftclient \
-    && apt-get clean \
-    && rm-rf /var/apt/lists/*
+    python3-swiftclient
 
 # Install packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -26,8 +24,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-neutronclient=7.8.0-0ubuntu1 \
     python3-novaclient=2:17.6.0-0ubuntu1 \
     python3-octaviaclient=2.5.0-0ubuntu1 \
-    python3-swiftclient=1:3.13.1-0ubuntu1 \
-    && apt-get clean \
-    && rm-rf /var/apt/lists/*
+    python3-swiftclient=1:3.13.1-0ubuntu1
 
 CMD ["/bin/bash"]
