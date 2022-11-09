@@ -27,7 +27,5 @@ jobs:
         run: docker build --file Dockerfile --tag ${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }} .
       - name: Login to Quay
         run: docker login -u ${{ env.QUAY_USER }} -p ${{ secrets.DOCKER_PASS }} quay.io
-        if: github.ref == 'refs/heads/main'
       - name: Push the Docker image
         run: docker push ${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}
-        if: github.ref == 'refs/heads/main'
