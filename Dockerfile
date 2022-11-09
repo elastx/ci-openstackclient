@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-openstackclient=5.8.0-0ubuntu1 \
     python3-barbicanclient=5.2.0-0ubuntu1 \
     python3-glanceclient=1:3.6.0-0ubuntu1 \
-    python3-neutronclient=7.8.0-0ubuntu1 \
+    python3-neutronclient=1:7.8.0-0ubuntu1 \
     python3-novaclient=2:17.6.0-0ubuntu1 \
     python3-octaviaclient=2.5.0-0ubuntu1 \
     python3-swiftclient=1:3.13.1-0ubuntu1
