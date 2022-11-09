@@ -1,0 +1,36 @@
+name: Build and push latest docker image
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+env:
+  IMAGE_NAME: quay.io/elastx/ci-openstackclient
+  IMAGE_VERSION: latest
+  QUAY_USER: elastx+ci_openstackclient
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: elastx/actions/docker-lint@main
+  buildandpush:
+    runs-on:
+      - self-hosted
+      - non-persistent
+    needs: lint
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build the Docker image
+        run: docker build --file Dockerfile --tag ${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }} .
+      - name: Login to Quay
+        run: docker login -u ${{ env.QUAY_USER }} -p ${{ secrets.DOCKER_PASS }} quay.io
+        if: github.ref == 'refs/heads/master'
+      - name: Push the Docker image
+        run: docker push ${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}
+        if: github.ref == 'refs/heads/master'
